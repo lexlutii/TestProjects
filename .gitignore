@@ -3,3 +3,25 @@
 ################################################################################
 
 /.vs/WebApplication2
+/WebApplication2/bin/Debug/netcoreapp2.1
+/WebApplication2/node_modules
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.RazorAssemblyInfo.cache
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.pdb
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.dll
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.csprojAssemblyReference.cache
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.csproj.FileListAbsolute.txt
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.csproj.CoreCompileInputs.cache
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.csproj.CopyComplete
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.assets.cache
+/WebApplication2/obj/Debug/netcoreapp2.1/WebApp.AssemblyInfoInputs.cache
+/WebApplication2/obj/WebApplication2.csproj.nuget.g.targets
+/WebApplication2/obj/WebApplication2.csproj.nuget.g.props
+/WebApplication2/obj/WebApplication2.csproj.nuget.dgspec.json
+/WebApplication2/obj/WebApplication2.csproj.nuget.cache
+/WebApplication2/obj/WebApp.csproj.nuget.g.targets
+/WebApplication2/obj/WebApp.csproj.nuget.g.props
+/WebApplication2/obj/WebApp.csproj.nuget.dgspec.json
+/WebApplication2/obj/WebApp.csproj.nuget.cache
+/WebApplication2/obj/project.assets.json
+/WebApplication2/obj/Debug/netcoreapp2.1
+/WebApplication2/dbo.Products.sql

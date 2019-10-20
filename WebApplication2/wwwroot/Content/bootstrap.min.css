@@ -1,0 +1,72 @@
+﻿body {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #ffffff;
+}
+
+table {
+    border-collapse: collapse;
+    border: 3px solid grey;
+    padding: 10px 15px;
+}
+
+tr, td {
+    border: 1px solid grey;
+    padding:0px 0px;
+}
+
+ul.hr {
+    margin: 0;
+    padding: 4px;
+}
+
+ul.hr li {
+    display: inline;
+    margin-right: 2px;
+
+    border: 0px solid #000;
+    padding: 1px;
+}
+
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #77aaff;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.no-color {
+    background-color: white;
+    border-style: none;
+}
+
+.message {
+    font-size: 20pt;
+    text-decoration: underline;
+}
+
+.form-container {
+    width: 300px;
+}
+
+.modals {
+    width: 250px;
+    background-color: #ff77aa;
+}
