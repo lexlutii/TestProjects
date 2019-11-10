@@ -5,17 +5,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Ошибка(javascript).</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/tables.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
 </head>
 <body>
-    <div id="content">
+    <div id="container">
         Сайт не работает без javascript. Пожалуйста, включите javascript.
         <script>
             document.title = "Test ASP.NET+EF+ReactJS";
-            var thisDiv = document.getElementById("content");
+            var thisDiv = document.getElementById("container");
             thisDiv.innerText = null;
         </script>
         <script async src="~/assets/bundle.js"></script>

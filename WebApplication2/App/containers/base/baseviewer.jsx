@@ -13,9 +13,9 @@ import { Input } from "../edite_product_base/validated_form.jsx";
 
 const _productTableHeader = {
     id: null,
-    name: "Название товара",
-    expandMore: "Описание товара",
-    price: "Цена"
+    name: "Product name",
+    expandMore: "Product description",
+    price: "Price"
 }
 
 export default class BaseViewer extends React.Component {
@@ -50,38 +50,49 @@ const BasePageViewer = (props) => {
     }
     else {
         tableBody = (<tbody>
-            {_entries.map((currentEntrie) => (
-                <ProductViewer key={currentEntrie.id} entrie={currentEntrie} useEdite={true} useID={true} />
-            ))}
+
 
 
         </tbody>);
     }
 
     return (
-        <div className="panel-body">
-            <h1 key="h1">All products.<br></br></h1>
-            <SearchForm/>
+        <div>            
+            <SearchForm />
+            <br/>
+            <div className="centerBlock">
+                <table key="table" className="inlineElement">
+                    <caption>All products.</caption>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>{_productTableHeader.name + " "} <LinkForSort key="name" sortFor="name" sortType={sortType} /></th>
+                            <th>{_productTableHeader.price + " "} <LinkForSort key="price" sortFor="price" sortType={sortType} /></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {_entries.map((currentEntrie) => (
+                            <ProductViewer key={currentEntrie.id} entrie={currentEntrie} useEdite={true} useID={true} />
+                        ))}</tbody>
+                </table>
+                <br/>
+                <LinkBtn key="add" to={TO_ADD} text="Add new product." />
 
-            <LinkBtn key="add" to={TO_ADD} text="Add new product." />
-
-            <table key="table" className="table table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <td>Id</td>
-                        <td>{_productTableHeader.name + " "} <LinkForSort key="name" sortFor="name" sortType={sortType} /></td>
-                        <td>{_productTableHeader.price + " "} <LinkForSort key="price" sortFor="price" sortType={sortType} /></td>
-                    </tr>
-                </thead>
-                {tableBody}
-            </table>
-
-            <ul className="hr">
-                {pages.map((pageNum) => {
-                var link = "/" + pageNum + window.location.search;
-                    return (<li key={link}><Link to={link}>{pageNum}</Link>, </li>);
-                })}
-            </ul>
+                <ul className="hr, pageList">
+                    {
+                        pages.length > 1 ?
+                            (pages.map((pageNum) => {
+                                var link = "/" + pageNum + window.location.search;
+                                return (<li key={link}><Link to={link}>{pageNum}</Link>, </li>);
+                            }))
+                            :
+                            null                            
+                    }
+                </ul>
+            </div>
         </div>
     );
 }
@@ -114,7 +125,7 @@ class SearchForm extends React.Component {
         }
         return "";
     }
-    
+
     handleUserInput = (e) => {
         const name = e.target.name;
         var value = e.target.value;
@@ -151,19 +162,31 @@ class SearchForm extends React.Component {
 
     render() {
         var sta = this.state;
-        return (<details>
-            <h3>Поиск</h3>
-            <form className="form-container" onSubmit={this.sendSearchQuerry}>
-                <Input name="searchName" type="text" value={sta.searchName} title="Name"
-                    placeholder={"name"} handleChange={this.handleUserInput} />
-                <Input name="minPrice" type="number" value={sta.minPrice} title="Min price(set -1 for default value)"
-                    placeholder={"min price"} handleChange={this.handleUserInput} />
-                <Input name="maxPrice" type="number" value={sta.maxPrice} title="Max price(set -1 for default value)"
-                    placeholder={"max price"} handleChange={this.handleUserInput} />
-
-                <Input name="search" type="submit" value="Seapch" />
-            </form>
-        </details>);
+        return (
+            <div className="centerBlock">
+                <h2>Search</h2>
+                <form className="search-form-container, inlineElement" onSubmit={this.sendSearchQuerry}>
+                    <table className="inlineElement">
+                        <tr>
+                            <td>
+                                <Input name="searchName" type="text" value={sta.searchName} title="Name"
+                                    placeholder={"name"} handleChange={this.handleUserInput} />
+                            </td>
+                            <td>
+                                <Input name="minPrice" type="number" value={sta.minPrice} title="Min price(set -1 for default value)"
+                                    placeholder={"min price"} handleChange={this.handleUserInput} />
+                            </td>
+                            <td>
+                                <Input name="maxPrice" type="number" value={sta.maxPrice} title="Max price(set -1 for default value)"
+                                    placeholder={"max price"} handleChange={this.handleUserInput} />
+                            </td>
+                        </tr>
+                    </table>
+                    <div className="centerBlock" >
+                        <Input name="search" type="submit" value="Search" />
+                    </div>
+                </form>
+            </div>);
     }
 }
 
@@ -175,8 +198,8 @@ const LinkForSort = (props)=> {
         isInvertOrder = props.sortType == sortFor;
     else
         isInvertOrder = false;
-    var orderArrow = isInvertOrder ? "⯅" : "⯆";
+    var orderArrow = isInvertOrder ? <img src="/Content/arrow_u.png" /> : <img src="/Content/arrow_d.png" /> ;
     if (isInvertOrder)
         sortFor += "Desc";
-    return (<Link to={TO_BASE+"?sortType=" + encodeURIComponent(sortFor)}>{orderArrow}</Link>);
+    return (<Link to={TO_BASE + "?sortType=" + encodeURIComponent(sortFor)}>{orderArrow}</Link>);
 }

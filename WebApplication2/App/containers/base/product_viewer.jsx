@@ -23,8 +23,8 @@ export const ProductViewer = (props) => {
     return (
         <tr id={props.entrie.id}>
             {tdId}
-            <td>{props.entrie.name}</td>
-            <td>{props.entrie.price}</td>
+            <td>{props.entrie._Name}</td>
+            <td>{props.entrie._Price}</td>
             <td>
                 <LinkBtn to={TO_DETAILS + "/" + props.entrie.id} text="details"/>
             </td>
@@ -42,14 +42,16 @@ export class DetailsProductViewer extends React.Component {
     }
 
     _renderDetails(_ajaxMessage) {
-        return <RenderProductDetails entrie={_ajaxMessage} useID={this.useID} />
+        return <div className="panel-body">
+            <RenderProductDetails entrie={_ajaxMessage} useID={this.useID} className="DetailsProductViewer" />
+        </div>
     }
 
     render() {
 
         var requestPath = window.location.pathname.replace(TO_DETAILS, AJAX_DETAILS);
         var requestURL = "https://" + window.location.host + requestPath;
-        return <GetAjaxMessageForRender requestUrl={requestURL} renderMethod={this._renderDetails} />;
+        return <GetAjaxMessageForRender requestUrl={requestURL} renderMethod={this._renderDetails}/>;
 
     }
 }
@@ -58,6 +60,7 @@ export class RenderProductDetails extends React.Component {
         super(props);
         this.entrie = props.entrie;
         this.useEdite = props.useEdite;
+        this.className = props.className ? props.className :"ProductViewer"
         if (this.useEdite == undefined)
             this.useEdite = true;
 
@@ -80,19 +83,28 @@ export class RenderProductDetails extends React.Component {
                     <LinkBtn to={TO_REMOVE + "/" + _entrie.id} text="remove" />
                 </td>);
             rfBase = <LinkBtn key="cancel" to={TO_BASE} text="Вернуться на главную страницу." />
+
         }
 
         return (
             <div>
-                <tr id={_entrie.id}>
-                    {tdId}
-                    <td>{_entrie.name}</td>
-                    <td>{_entrie.expandMore}</td>
-                    <td>{_entrie.price}</td>
-                    {tdEdite}
-                    {tdRemove}
-                </tr>
-                {rfBase}
+                <table className={this.className} >
+                    <tr>
+                        {tdId ? <th>ID</th> : null}
+                        <th>Name</th>
+                        <th>Product description</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr id={_entrie.id}>
+                        {tdId}
+                        <td>{_entrie.name}</td>
+                        <td>{_entrie.description}</td>
+                        <td>{_entrie.price}</td>
+                        {tdEdite}
+                        {tdRemove}
+                    </tr>
+                </table>
+                <div className="centerBlock">{rfBase}</div>
             </div>
         );
     }

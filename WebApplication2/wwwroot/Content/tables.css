@@ -1,0 +1,154 @@
+﻿html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	font-family: sans-serif;
+	font-weight: 100;
+}
+
+.panel-body, .form-container, .DetailsProductViewer .AutorisationForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h3, h2, caption {
+    font-size: 30px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 15px;
+}
+h2 {
+    font-size: 20px;
+    text-transform:none
+}
+table {
+    width: 800px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+    table.ProductViewer, table.DetailsProductViewer {
+        width:700px
+    }
+
+    th,
+    td {
+        padding: 10px;
+        background-color: rgba(255,255,255,0.2);
+        color: #fff;
+    }
+
+th {
+	text-align: left;
+		background-color: #55608f;
+}
+
+thead {
+	th {
+	}
+}
+
+tbody {
+	tr {
+		&:hover {
+			background-color: rgba(255,255,255,0.3);
+		}
+	}
+	td {
+		position: relative;
+		&:hover {
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -9999px;
+				bottom: -9999px;
+				background-color: rgba(255,255,255,0.2);
+				z-index: -1;
+			}
+		}
+	}
+}
+
+.centerBlock {
+    text-align: center;
+
+}
+
+YcentrBlock {
+    margin: 0;
+    position: absolute; /* 2 */
+    top: 50%; /* 3 */
+    transform: translate(0, -50%)
+}
+
+.inlineElement {
+    display: inline
+}
+
+.table_dark a, button, .form-submit {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    background: #709391;
+    box-shadow: 2px 2px 0 0 #507371;
+    position: relative;
+    color: #eee;
+}
+
+    .table_dark a:hover, button:hover, .form-submit:hover {
+        box-shadow: none;
+        top: 2px;
+        left: 2px;
+        color: #fff;
+    }
+
+.pageList {
+    font-size: 20px;
+    margin: 0;
+    padding: 4px;
+}
+    .pageList li {
+        display: inline;
+        margin-right: 5px;
+        padding: 3px;
+    }
+
+
+
+.field-validation-error, .formErrors {
+    color: #ff4a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #77aaff;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.whiteText {
+    color:#fff
+}

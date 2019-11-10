@@ -10,9 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export const _productTableHeader = {
     id: null,
-    name: "Название товара",
-    expand_more: "Описание товара",
-    price: "Цена"
+    name: "Product name",
+    description: "Product description",
+    price: "Price"
 }
 
 export class ValidatedForm extends React.Component {
@@ -24,17 +24,17 @@ export class ValidatedForm extends React.Component {
 
         this.state = {
             name: '',
-            expandMore: '',
+            description: '',
             price: '',
 
             formErrors: {
                 name: '',
-                expandMore: '',
+                description: '',
                 price: '',
             },
 
             nameValid: false,
-            expandMoreValid: false,
+            descriptionValid: false,
             priceValid: false,
 
             formValid: false
@@ -42,15 +42,15 @@ export class ValidatedForm extends React.Component {
 
         if (props.ajaxMessage != null) {
             this.state.name = props.ajaxMessage.name;
-            this.state.expandMore = props.ajaxMessage.expandMore;
-            this.state.price = props.ajaxMessage.price;            
+            this.state.description = props.ajaxMessage.description;
+            this.state.price = props.ajaxMessage.price;
         }
 
         this._placeholder = {
             id: null,
-            name: "Наименование",
-            expandMore: "Описание",
-            price: "Цена"
+            name: "name",
+            description: "description",
+            price: "price"
         };
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -69,17 +69,17 @@ export class ValidatedForm extends React.Component {
     validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
         let nameValid = this.state.nameValid;
-        let expandMoreValid = this.state.expandMoreValid;
+        let descriptionValid = this.state.descriptionValid;
         let priceValid = this.state.priceValid;
 
         switch (fieldName) {
             case "name":
-                nameValid = value!=null && value!="";
+                nameValid = value != null && value != "";
                 fieldValidationErrors.name = nameValid ? '' : ' is empty';
                 break;
-            case 'expandMore':
-                expandMoreValid = value != null && value!="";
-                fieldValidationErrors.expandMore = expandMoreValid ? '' : ' is empty';
+            case 'description':
+                descriptionValid = value != null && value != "";
+                fieldValidationErrors.description = descriptionValid ? '' : ' is empty';
                 break;
             case "price":
                 priceValid = false;
@@ -100,7 +100,7 @@ export class ValidatedForm extends React.Component {
         this.setState({
             formErrors: fieldValidationErrors,
             nameValid: nameValid,
-            expandMoreValid: expandMoreValid,
+            descriptionValid: descriptionValid,
             priceValid: priceValid
         }, this.validateForm);
     }
@@ -109,8 +109,8 @@ export class ValidatedForm extends React.Component {
         this.setState({
             formValid:
                 this.state.nameValid &&
-                this.state.expandMoreValid &&
-                this.state.priceValid 
+                this.state.descriptionValid &&
+                this.state.priceValid
         });
     }
 
@@ -119,9 +119,9 @@ export class ValidatedForm extends React.Component {
     }
 
     sendFormRequest(sta, submitAdress) {
-        var paramNames = new Array("name", "expandMore", "price");
+        var paramNames = new Array("name", "description", "price");
 
-        var paramValues = new Array(sta.name, sta.expandMore, sta.price);
+        var paramValues = new Array(sta.name, sta.description, sta.price);
         return sendAutorysedPostRequest(submitAdress, paramNames, paramValues)
     }
 
@@ -133,7 +133,7 @@ export class ValidatedForm extends React.Component {
             case 200:
                 if (request.responseText != "")
                     alert("invalide submit adress, or request type!");
-                    
+
                 this.setState({
                     redirectTo: TO_BASE
                 });
@@ -154,7 +154,7 @@ export class ValidatedForm extends React.Component {
                     });
                 }
                 else
-                    alert("Error " +  + request.statusText);
+                    alert("Error " + + request.statusText);
                 break;
         }
     }
@@ -174,27 +174,32 @@ export class ValidatedForm extends React.Component {
         var ph = this._placeholder;
         var handInput = this.handleUserInput;
         return (
-            <form className="form-container" onSubmit={this.handleFormSubmit}>
-                <fieldset>
-                    <legend>{this._header}</legend>
-                    <Input name="name" type="text" value={ste.name} title="Name"
-                        placeholder={ph.name} handleChange={handInput} required/>
-                    <Input name="expandMore" type="text" value={ste.expandMore} title="ExpandMore"
-                        placeholder={ph.expandMore} handleChange={handInput} required/>
-                    <Input name="price" type="number" value={ste.price} title="Price"
-                        placeholder={ph.price} handleChange={handInput} required/>
-                </fieldset>
-                <Input name="save" type="submit" value="Save" required />
-                <button onClick={this.handleCancel}>Cancel</button>
-            </form>
+            <div className="whiteText">
+                <form className="form-container" onSubmit={this.handleFormSubmit}>
+                    <fieldset>
+                        <legend>{this._header}</legend>
+                        <Input name="name" type="text" value={ste.name} title={_productTableHeader.name}
+                            placeholder={ph.name} handleChange={handInput} required />
+                        <Input name="description" type="text" value={ste.description} title={_productTableHeader.description}
+                            placeholder={ph.description} handleChange={handInput} required />
+                        <Input name="price" type="number" value={ste.price} title={_productTableHeader.price}
+                            placeholder={ph.price} handleChange={handInput} required />
+                    </fieldset>
+                    <div className="centerBlock">
+                        <Input name="save" type="submit" value="Save" required />
+                        <button onClick={this.handleCancel}>Cancel</button>
+                    </div>
+                </form>
+            </div>
         );
-    } 
+    }
 }
 
 export const Input = (props) => {
     var required = false;
     if (props.required != undefined)
         required = true;
+    var className = props.type == "submit" ? "form-submit" : "form-input";
 
     return (
         <label htmlFor={props.name} className="form-label">{props.title}
@@ -203,6 +208,7 @@ export const Input = (props) => {
                 id={props.name}
                 name={props.name}
                 type={props.type}
+                className={className}
                 value={props.value}
                 onChange={props.handleChange}
                 placeholder={props.placeholder}

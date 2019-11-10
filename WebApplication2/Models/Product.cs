@@ -21,12 +21,12 @@ namespace WebApp_product
         
         #region Constructs
 
-        public Product(string name, string expandMore, int price)
+        public Product(string name, string description, int price)
         {
             //todo дублировать валидацию из формы
-            Name = name;
-            ExpandMore = expandMore;
-            Price = price;
+            _Name = name;
+            _Description = description;
+            _Price = price;
         }
 
         #endregion                       
@@ -38,10 +38,10 @@ namespace WebApp_product
         [DataMember]
         public long Id { get; set; }
         [DataMember]
-        public string Name { get; set; }
-        public string ExpandMore { get; set; }
+        public string _Name { get; set; }
+        public string _Description { get; set; }
         [DataMember]
-        public int Price { get; set; }
+        public int _Price { get; set; }
 
         #endregion
 
@@ -50,13 +50,13 @@ namespace WebApp_product
         #region Methods
 
         override public String ToString(){
-            return Name + "\";\"" + ExpandMore + "\";\"" + Price;
+            return _Name + "\";\"" + _Description + "\";\"" + _Price;
         }
 
         public override bool Equals(object obj)
         {
             Product o = (Product)obj;
-            return Name == o.Name && ExpandMore == o.ExpandMore && Price == o.Price;
+            return _Name == o._Name && _Description == o._Description && _Price == o._Price;
         }
 
         static Product Parse(string val) {
@@ -77,9 +77,9 @@ namespace WebApp_product
 
         internal void setValye(Product updatedEntry)
         {
-            Name = updatedEntry.Name;
-            ExpandMore = updatedEntry.ExpandMore;
-            Price = updatedEntry.Price;
+            _Name = updatedEntry._Name;
+            _Description = updatedEntry._Description;
+            _Price = updatedEntry._Price;
         }
 
         #endregion

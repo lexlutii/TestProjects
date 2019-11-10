@@ -36,11 +36,11 @@ namespace WebApp_product
             {
                 case Product.SortType.name:
                 case Product.SortType.nameDesc:
-                    sortSelector = c => c.Name;
+                    sortSelector = c => c._Name;
                     break;
                 case Product.SortType.price:
                 case Product.SortType.priceDesc:
-                    sortSelector = c => c.Price;
+                    sortSelector = c => c._Price;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -52,7 +52,7 @@ namespace WebApp_product
             if (searchName == null)
                 searchName = "";
             Expression<Func<Product, bool>> filterSelector = 
-                x => x.Name.StartsWith(searchName) && (x.Price >= minPrice) && (x.Price <= maxPrice);// 
+                x => x._Name.StartsWith(searchName) && (x._Price >= minPrice) && (x._Price <= maxPrice);// 
 
             if ((((int)sortType)%2)!=0)
                 products = Products.Where(filterSelector).OrderByDescending(sortSelector).Skip(startIndex).Take(length);//

@@ -73,42 +73,46 @@ export class AutorisationViewer extends React.Component {
         var st = this.state;
 
         return (
-            <form className="AutorisationForm">
+            <div className="panel-body">
+            <form className="centerBlock, form-container, whiteText">
                 <h2>Login</h2>
-                <div className="panel panel-default">
+                <div className="inlineBlock, centerBlock">
                     <FormErrors formErrors={st.formErrors} />
                 </div>
-                <div className={`form-group ${this.errorClass(st.formErrors.userName)}`}>
+                <div className={`form-group ${this.errorClass(st.formErrors.userName)}` + ", inlineBlock, centerBlock"}>
                     <label htmlFor="userName">User name</label>
                     <input type="userName" required className="form-control" name="userName"
                         placeholder="UserName"
                         value={st.userName}
                         onChange={this.handleUserInput} />
                 </div>
-                <div className={`form-group ${this.errorClass(st.formErrors.password)}`}>
+                <div className={`form-group ${this.errorClass(st.formErrors.password)}` + ", inlineBlock, centerBlock"}>
                     <label htmlFor="password">Password</label>
                     <input type="password" className="form-control" name="password"
                         placeholder="Password"
                         value={this.state.password}
                         onChange={this.handleUserInput} />
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={
-                    (event) => {
-                        event.preventDefault();
-                        var requestStatus = this.sendAutorisationRequest(st.userName, st.password);
-                        if (requestStatus == 200) {
-                            var link = window.location.href;
-                            link = link.split("redirectPath=");
-                            link = link[1];
-                            if (link != null)
-                                this.props.history.push(link);
-                            else
-                                this.props.history.push("/base/1");
+                <div className=" centerBlock">
+                    <button type="submit" className="btn btn-primary, inlineBlock" onClick={
+                        (event) => {
+                            event.preventDefault();
+                            var requestStatus = this.sendAutorisationRequest(st.userName, st.password);
+                            if (requestStatus == 200) {
+                                var link = window.location.href;
+                                link = link.split("redirectPath=");
+                                link = link[1];
+                                if (link != null)
+                                    this.props.history.push(link);
+                                else
+                                    this.props.history.push("/base/1");
+                            }
+                            else alert("Ошибка авторизации, код " + requestStatus);
                         }
-                        else alert("Ошибка авторизации, код " + requestStatus);
-                    }
-                } disabled={!this.state.formValid}>Login!</button>
-            </form>
+                    } disabled={!this.state.formValid}>Login!</button>
+                    </div>
+                </form>
+                </div>
         )
     }
 

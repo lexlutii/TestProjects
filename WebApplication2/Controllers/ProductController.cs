@@ -79,9 +79,9 @@ namespace WebApp_product.Controllers
             var response = new
             {
                 id = current.Id,
-                name = current.Name,
-                expandMore = current.ExpandMore,
-                price = current.Price
+                name = current._Name,
+                description = current._Description,
+                price = current._Price
             };
            
             return Json(response);
@@ -148,7 +148,7 @@ namespace WebApp_product.Controllers
         {
             Product currentEntry = null;
                 string name = Request.Form["name"];
-                string expandmore = Request.Form["expandmore"];
+                string expandmore = Request.Form["description"];
                 int price = int.Parse(Request.Form["price"]);
                 currentEntry = new Product(name, expandmore, price);
             

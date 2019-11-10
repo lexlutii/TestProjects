@@ -16,7 +16,6 @@ export default class DeleteProductViewer extends React.Component {
         this._renderForm = this._renderForm.bind(this);
     }
 
-    //проверка и отображение ajax-сообщения с данными станицы просмотра базы данных
     _renderForm(ajaxMessage) {
         this.requestPath = this.requestPath.replace(AJAX_DETAILS, AJAX_REMOVE);
         return <RemoveForm submitAdress={this.requestPath}
@@ -82,14 +81,17 @@ class RemoveForm extends React.Component {
             return (<Redirect to={this.state.redirectTo} />);
 
         var removeProductChild = (
-            <form className="container" onSubmit={this.handleFormSubmit}>>
-                <h1>Удаление записи:</h1>
-                <RenderProductDetails entrie={this._entrieToRemove} useEdite={false} />
-                <h2>Вы действительно хотите удалить эту запись?</h2>
+            <div>
+                <form className="form-container" onSubmit={this.handleFormSubmit}>>
+                <h3>Delete the entry:</h3>
+                    <RenderProductDetails entrie={this._entrieToRemove} useEdite={false} />
+                    <h2>Are you sure you want to delete this entry?</h2>
+                    <div className="centerBlock">
+                        <LinkBtn key="cancel" to={TO_BASE} text="Cancel" />
+                        <input type="submit" id="remove" value="Delete" className="form-submit" />
+                    </div>
 
-                <LinkBtn key="cancel" to={TO_BASE} text="Отменить удаление" />
-                <input type="submit" id="remove" value="Удалить запись" />
-            </form>);
+                </form></div>);
 
         return removeProductChild;
     }

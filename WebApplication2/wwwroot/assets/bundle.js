@@ -625,57 +625,65 @@ var AutorisationViewer = exports.AutorisationViewer = function (_React$Component
             var st = this.state;
 
             return _react2.default.createElement(
-                'form',
-                { className: 'AutorisationForm' },
+                'div',
+                { className: 'panel-body' },
                 _react2.default.createElement(
-                    'h2',
-                    null,
-                    'Login'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'panel panel-default' },
-                    _react2.default.createElement(_form_errors.FormErrors, { formErrors: st.formErrors })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group ' + this.errorClass(st.formErrors.userName) },
+                    'form',
+                    { className: 'centerBlock, form-container, whiteText' },
                     _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'userName' },
-                        'User name'
+                        'h2',
+                        null,
+                        'Login'
                     ),
-                    _react2.default.createElement('input', { type: 'userName', required: true, className: 'form-control', name: 'userName',
-                        placeholder: 'UserName',
-                        value: st.userName,
-                        onChange: this.handleUserInput })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group ' + this.errorClass(st.formErrors.password) },
                     _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'password' },
-                        'Password'
+                        'div',
+                        { className: 'inlineBlock, centerBlock' },
+                        _react2.default.createElement(_form_errors.FormErrors, { formErrors: st.formErrors })
                     ),
-                    _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password',
-                        placeholder: 'Password',
-                        value: this.state.password,
-                        onChange: this.handleUserInput })
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { type: 'submit', className: 'btn btn-primary', onClick: function onClick(event) {
-                            event.preventDefault();
-                            var requestStatus = _this2.sendAutorisationRequest(st.userName, st.password);
-                            if (requestStatus == 200) {
-                                var link = window.location.href;
-                                link = link.split("redirectPath=");
-                                link = link[1];
-                                if (link != null) _this2.props.history.push(link);else _this2.props.history.push("/base/1");
-                            } else alert("Ошибка авторизации, код " + requestStatus);
-                        }, disabled: !this.state.formValid },
-                    'Login!'
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group ' + this.errorClass(st.formErrors.userName) + ", inlineBlock, centerBlock" },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'userName' },
+                            'User name'
+                        ),
+                        _react2.default.createElement('input', { type: 'userName', required: true, className: 'form-control', name: 'userName',
+                            placeholder: 'UserName',
+                            value: st.userName,
+                            onChange: this.handleUserInput })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group ' + this.errorClass(st.formErrors.password) + ", inlineBlock, centerBlock" },
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: 'password' },
+                            'Password'
+                        ),
+                        _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password',
+                            placeholder: 'Password',
+                            value: this.state.password,
+                            onChange: this.handleUserInput })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: ' centerBlock' },
+                        _react2.default.createElement(
+                            'button',
+                            { type: 'submit', className: 'btn btn-primary, inlineBlock', onClick: function onClick(event) {
+                                    event.preventDefault();
+                                    var requestStatus = _this2.sendAutorisationRequest(st.userName, st.password);
+                                    if (requestStatus == 200) {
+                                        var link = window.location.href;
+                                        link = link.split("redirectPath=");
+                                        link = link[1];
+                                        if (link != null) _this2.props.history.push(link);else _this2.props.history.push("/base/1");
+                                    } else alert("Ошибка авторизации, код " + requestStatus);
+                                }, disabled: !this.state.formValid },
+                            'Login!'
+                        )
+                    )
                 )
             );
         }
@@ -2188,9 +2196,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _productTableHeader = exports._productTableHeader = {
     id: null,
-    name: "Название товара",
-    expand_more: "Описание товара",
-    price: "Цена"
+    name: "Product name",
+    description: "Product description",
+    price: "Price"
 };
 
 var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
@@ -2214,17 +2222,17 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
 
         _this.state = {
             name: '',
-            expandMore: '',
+            description: '',
             price: '',
 
             formErrors: {
                 name: '',
-                expandMore: '',
+                description: '',
                 price: ''
             },
 
             nameValid: false,
-            expandMoreValid: false,
+            descriptionValid: false,
             priceValid: false,
 
             formValid: false
@@ -2232,15 +2240,15 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
 
         if (props.ajaxMessage != null) {
             _this.state.name = props.ajaxMessage.name;
-            _this.state.expandMore = props.ajaxMessage.expandMore;
+            _this.state.description = props.ajaxMessage.description;
             _this.state.price = props.ajaxMessage.price;
         }
 
         _this._placeholder = {
             id: null,
-            name: "Наименование",
-            expandMore: "Описание",
-            price: "Цена"
+            name: "name",
+            description: "description",
+            price: "price"
         };
 
         _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
@@ -2255,7 +2263,7 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
         value: function validateField(fieldName, value) {
             var fieldValidationErrors = this.state.formErrors;
             var nameValid = this.state.nameValid;
-            var expandMoreValid = this.state.expandMoreValid;
+            var descriptionValid = this.state.descriptionValid;
             var priceValid = this.state.priceValid;
 
             switch (fieldName) {
@@ -2263,9 +2271,9 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
                     nameValid = value != null && value != "";
                     fieldValidationErrors.name = nameValid ? '' : ' is empty';
                     break;
-                case 'expandMore':
-                    expandMoreValid = value != null && value != "";
-                    fieldValidationErrors.expandMore = expandMoreValid ? '' : ' is empty';
+                case 'description':
+                    descriptionValid = value != null && value != "";
+                    fieldValidationErrors.description = descriptionValid ? '' : ' is empty';
                     break;
                 case "price":
                     priceValid = false;
@@ -2280,7 +2288,7 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
             this.setState({
                 formErrors: fieldValidationErrors,
                 nameValid: nameValid,
-                expandMoreValid: expandMoreValid,
+                descriptionValid: descriptionValid,
                 priceValid: priceValid
             }, this.validateForm);
         }
@@ -2288,7 +2296,7 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
         key: "validateForm",
         value: function validateForm() {
             this.setState({
-                formValid: this.state.nameValid && this.state.expandMoreValid && this.state.priceValid
+                formValid: this.state.nameValid && this.state.descriptionValid && this.state.priceValid
             });
         }
     }, {
@@ -2299,9 +2307,9 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
     }, {
         key: "sendFormRequest",
         value: function sendFormRequest(sta, submitAdress) {
-            var paramNames = new Array("name", "expandMore", "price");
+            var paramNames = new Array("name", "description", "price");
 
-            var paramValues = new Array(sta.name, sta.expandMore, sta.price);
+            var paramValues = new Array(sta.name, sta.description, sta.price);
             return (0, _autoryse_base.sendAutorysedPostRequest)(submitAdress, paramNames, paramValues);
         }
     }, {
@@ -2352,28 +2360,36 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
             var ph = this._placeholder;
             var handInput = this.handleUserInput;
             return _react2.default.createElement(
-                "form",
-                { className: "form-container", onSubmit: this.handleFormSubmit },
+                "div",
+                { className: "whiteText" },
                 _react2.default.createElement(
-                    "fieldset",
-                    null,
+                    "form",
+                    { className: "form-container", onSubmit: this.handleFormSubmit },
                     _react2.default.createElement(
-                        "legend",
+                        "fieldset",
                         null,
-                        this._header
+                        _react2.default.createElement(
+                            "legend",
+                            null,
+                            this._header
+                        ),
+                        _react2.default.createElement(Input, { name: "name", type: "text", value: ste.name, title: _productTableHeader.name,
+                            placeholder: ph.name, handleChange: handInput, required: true }),
+                        _react2.default.createElement(Input, { name: "description", type: "text", value: ste.description, title: _productTableHeader.description,
+                            placeholder: ph.description, handleChange: handInput, required: true }),
+                        _react2.default.createElement(Input, { name: "price", type: "number", value: ste.price, title: _productTableHeader.price,
+                            placeholder: ph.price, handleChange: handInput, required: true })
                     ),
-                    _react2.default.createElement(Input, { name: "name", type: "text", value: ste.name, title: "Name",
-                        placeholder: ph.name, handleChange: handInput, required: true }),
-                    _react2.default.createElement(Input, { name: "expandMore", type: "text", value: ste.expandMore, title: "ExpandMore",
-                        placeholder: ph.expandMore, handleChange: handInput, required: true }),
-                    _react2.default.createElement(Input, { name: "price", type: "number", value: ste.price, title: "Price",
-                        placeholder: ph.price, handleChange: handInput, required: true })
-                ),
-                _react2.default.createElement(Input, { name: "save", type: "submit", value: "Save", required: true }),
-                _react2.default.createElement(
-                    "button",
-                    { onClick: this.handleCancel },
-                    "Cancel"
+                    _react2.default.createElement(
+                        "div",
+                        { className: "centerBlock" },
+                        _react2.default.createElement(Input, { name: "save", type: "submit", value: "Save", required: true }),
+                        _react2.default.createElement(
+                            "button",
+                            { onClick: this.handleCancel },
+                            "Cancel"
+                        )
+                    )
                 )
             );
         }
@@ -2385,6 +2401,7 @@ var ValidatedForm = exports.ValidatedForm = function (_React$Component) {
 var Input = exports.Input = function Input(props) {
     var required = false;
     if (props.required != undefined) required = true;
+    var className = props.type == "submit" ? "form-submit" : "form-input";
 
     return _react2.default.createElement(
         "label",
@@ -2395,6 +2412,7 @@ var Input = exports.Input = function Input(props) {
             id: props.name,
             name: props.name,
             type: props.type,
+            className: className,
             value: props.value,
             onChange: props.handleChange,
             placeholder: props.placeholder,
@@ -2802,12 +2820,12 @@ var ProductViewer = exports.ProductViewer = function ProductViewer(props) {
         React.createElement(
             "td",
             null,
-            props.entrie.name
+            props.entrie._Name
         ),
         React.createElement(
             "td",
             null,
-            props.entrie.price
+            props.entrie._Price
         ),
         React.createElement(
             "td",
@@ -2835,7 +2853,11 @@ var DetailsProductViewer = exports.DetailsProductViewer = function (_React$Compo
     _createClass(DetailsProductViewer, [{
         key: "_renderDetails",
         value: function _renderDetails(_ajaxMessage) {
-            return React.createElement(RenderProductDetails, { entrie: _ajaxMessage, useID: this.useID });
+            return React.createElement(
+                "div",
+                { className: "panel-body" },
+                React.createElement(RenderProductDetails, { entrie: _ajaxMessage, useID: this.useID, className: "DetailsProductViewer" })
+            );
         }
     }, {
         key: "render",
@@ -2860,6 +2882,7 @@ var RenderProductDetails = exports.RenderProductDetails = function (_React$Compo
 
         _this2.entrie = props.entrie;
         _this2.useEdite = props.useEdite;
+        _this2.className = props.className ? props.className : "ProductViewer";
         if (_this2.useEdite == undefined) _this2.useEdite = true;
 
         return _this2;
@@ -2896,28 +2919,60 @@ var RenderProductDetails = exports.RenderProductDetails = function (_React$Compo
                 "div",
                 null,
                 React.createElement(
-                    "tr",
-                    { id: _entrie.id },
-                    tdId,
+                    "table",
+                    { className: this.className },
                     React.createElement(
-                        "td",
+                        "tr",
                         null,
-                        _entrie.name
+                        tdId ? React.createElement(
+                            "th",
+                            null,
+                            "ID"
+                        ) : null,
+                        React.createElement(
+                            "th",
+                            null,
+                            "Name"
+                        ),
+                        React.createElement(
+                            "th",
+                            null,
+                            "Product description"
+                        ),
+                        React.createElement(
+                            "th",
+                            null,
+                            "Price"
+                        )
                     ),
                     React.createElement(
-                        "td",
-                        null,
-                        _entrie.expandMore
-                    ),
-                    React.createElement(
-                        "td",
-                        null,
-                        _entrie.price
-                    ),
-                    tdEdite,
-                    tdRemove
+                        "tr",
+                        { id: _entrie.id },
+                        tdId,
+                        React.createElement(
+                            "td",
+                            null,
+                            _entrie.name
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            _entrie.description
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            _entrie.price
+                        ),
+                        tdEdite,
+                        tdRemove
+                    )
                 ),
-                rfBase
+                React.createElement(
+                    "div",
+                    { className: "centerBlock" },
+                    rfBase
+                )
             );
         }
     }]);
@@ -4271,7 +4326,7 @@ var _app_main2 = _interopRequireDefault(_app_main);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _reactDom.render)(_react2.default.createElement(_app_main2.default, null), document.getElementById('content'));
+(0, _reactDom.render)(_react2.default.createElement(_app_main2.default, null), document.getElementById('container'));
 //import App from "./containers/app";
 
 /***/ }),
@@ -30638,9 +30693,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _productTableHeader = {
     id: null,
-    name: "Название товара",
-    expandMore: "Описание товара",
-    price: "Цена"
+    name: "Product name",
+    expandMore: "Product description",
+    price: "Price"
 };
 
 var BaseViewer = function (_React$Component) {
@@ -30698,74 +30753,82 @@ var BasePageViewer = function BasePageViewer(props) {
     if (_entries == null || _entries.length == 0) {
         if (pages != 0) return _react2.default.createElement(_error_page.ErrorPage, { code: "404", text: "Not found" });
     } else {
-        tableBody = _react2.default.createElement(
-            "tbody",
-            null,
-            _entries.map(function (currentEntrie) {
-                return _react2.default.createElement(_product_viewer.ProductViewer, { key: currentEntrie.id, entrie: currentEntrie, useEdite: true, useID: true });
-            })
-        );
+        tableBody = _react2.default.createElement("tbody", null);
     }
 
     return _react2.default.createElement(
         "div",
-        { className: "panel-body" },
-        _react2.default.createElement(
-            "h1",
-            { key: "h1" },
-            "All products.",
-            _react2.default.createElement("br", null)
-        ),
+        null,
         _react2.default.createElement(SearchForm, null),
-        _react2.default.createElement(_link_btn2.default, { key: "add", to: _standart_link_adress.TO_ADD, text: "Add new product." }),
+        _react2.default.createElement("br", null),
         _react2.default.createElement(
-            "table",
-            { key: "table", className: "table table-striped table-condensed" },
+            "div",
+            { className: "centerBlock" },
             _react2.default.createElement(
-                "thead",
-                null,
+                "table",
+                { key: "table", className: "inlineElement" },
                 _react2.default.createElement(
-                    "tr",
+                    "caption",
+                    null,
+                    "All products."
+                ),
+                _react2.default.createElement(
+                    "thead",
                     null,
                     _react2.default.createElement(
-                        "td",
+                        "tr",
                         null,
-                        "Id"
-                    ),
-                    _react2.default.createElement(
-                        "td",
-                        null,
-                        _productTableHeader.name + " ",
-                        " ",
-                        _react2.default.createElement(LinkForSort, { key: "name", sortFor: "name", sortType: sortType })
-                    ),
-                    _react2.default.createElement(
-                        "td",
-                        null,
-                        _productTableHeader.price + " ",
-                        " ",
-                        _react2.default.createElement(LinkForSort, { key: "price", sortFor: "price", sortType: sortType })
+                        _react2.default.createElement(
+                            "th",
+                            null,
+                            "Id"
+                        ),
+                        _react2.default.createElement(
+                            "th",
+                            null,
+                            _productTableHeader.name + " ",
+                            " ",
+                            _react2.default.createElement(LinkForSort, { key: "name", sortFor: "name", sortType: sortType })
+                        ),
+                        _react2.default.createElement(
+                            "th",
+                            null,
+                            _productTableHeader.price + " ",
+                            " ",
+                            _react2.default.createElement(LinkForSort, { key: "price", sortFor: "price", sortType: sortType })
+                        ),
+                        _react2.default.createElement("th", null),
+                        _react2.default.createElement("th", null),
+                        _react2.default.createElement("th", null)
                     )
+                ),
+                _react2.default.createElement(
+                    "tbody",
+                    null,
+                    _entries.map(function (currentEntrie) {
+                        return _react2.default.createElement(_product_viewer.ProductViewer, { key: currentEntrie.id, entrie: currentEntrie, useEdite: true, useID: true });
+                    })
                 )
             ),
-            tableBody
-        ),
-        _react2.default.createElement(
-            "ul",
-            { className: "hr" },
-            pages.map(function (pageNum) {
-                var link = "/" + pageNum + window.location.search;
-                return _react2.default.createElement(
-                    "li",
-                    { key: link },
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: link },
-                        pageNum
-                    ),
-                    ", "
-                );
-            })
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(_link_btn2.default, { key: "add", to: _standart_link_adress.TO_ADD, text: "Add new product." }),
+            _react2.default.createElement(
+                "ul",
+                { className: "hr, pageList" },
+                pages.length > 1 ? pages.map(function (pageNum) {
+                    var link = "/" + pageNum + window.location.search;
+                    return _react2.default.createElement(
+                        "li",
+                        { key: link },
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: link },
+                            pageNum
+                        ),
+                        ", "
+                    );
+                }) : null
+            )
         )
     );
 };
@@ -30841,23 +30904,47 @@ var SearchForm = function (_React$Component2) {
         value: function render() {
             var sta = this.state;
             return _react2.default.createElement(
-                "details",
-                null,
+                "div",
+                { className: "centerBlock" },
                 _react2.default.createElement(
-                    "h3",
+                    "h2",
                     null,
-                    "\u041F\u043E\u0438\u0441\u043A"
+                    "Search"
                 ),
                 _react2.default.createElement(
                     "form",
-                    { className: "form-container", onSubmit: this.sendSearchQuerry },
-                    _react2.default.createElement(_validated_form.Input, { name: "searchName", type: "text", value: sta.searchName, title: "Name",
-                        placeholder: "name", handleChange: this.handleUserInput }),
-                    _react2.default.createElement(_validated_form.Input, { name: "minPrice", type: "number", value: sta.minPrice, title: "Min price(set -1 for default value)",
-                        placeholder: "min price", handleChange: this.handleUserInput }),
-                    _react2.default.createElement(_validated_form.Input, { name: "maxPrice", type: "number", value: sta.maxPrice, title: "Max price(set -1 for default value)",
-                        placeholder: "max price", handleChange: this.handleUserInput }),
-                    _react2.default.createElement(_validated_form.Input, { name: "search", type: "submit", value: "Seapch" })
+                    { className: "search-form-container, inlineElement", onSubmit: this.sendSearchQuerry },
+                    _react2.default.createElement(
+                        "table",
+                        { className: "inlineElement" },
+                        _react2.default.createElement(
+                            "tr",
+                            null,
+                            _react2.default.createElement(
+                                "td",
+                                null,
+                                _react2.default.createElement(_validated_form.Input, { name: "searchName", type: "text", value: sta.searchName, title: "Name",
+                                    placeholder: "name", handleChange: this.handleUserInput })
+                            ),
+                            _react2.default.createElement(
+                                "td",
+                                null,
+                                _react2.default.createElement(_validated_form.Input, { name: "minPrice", type: "number", value: sta.minPrice, title: "Min price(set -1 for default value)",
+                                    placeholder: "min price", handleChange: this.handleUserInput })
+                            ),
+                            _react2.default.createElement(
+                                "td",
+                                null,
+                                _react2.default.createElement(_validated_form.Input, { name: "maxPrice", type: "number", value: sta.maxPrice, title: "Max price(set -1 for default value)",
+                                    placeholder: "max price", handleChange: this.handleUserInput })
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "centerBlock" },
+                        _react2.default.createElement(_validated_form.Input, { name: "search", type: "submit", value: "Search" })
+                    )
                 )
             );
         }
@@ -30870,7 +30957,7 @@ var LinkForSort = function LinkForSort(props) {
     var isInvertOrder;
     var sortFor = props.sortFor;
     if (props.sortType.startsWith(sortFor)) isInvertOrder = props.sortType == sortFor;else isInvertOrder = false;
-    var orderArrow = isInvertOrder ? "⯅" : "⯆";
+    var orderArrow = isInvertOrder ? _react2.default.createElement("img", { src: "/Content/arrow_u.png" }) : _react2.default.createElement("img", { src: "/Content/arrow_d.png" });
     if (isInvertOrder) sortFor += "Desc";
     return _react2.default.createElement(
         _reactRouterDom.Link,
@@ -31728,9 +31815,6 @@ var DeleteProductViewer = function (_React$Component) {
         return _this;
     }
 
-    //проверка и отображение ajax-сообщения с данными станицы просмотра базы данных
-
-
     _createClass(DeleteProductViewer, [{
         key: '_renderForm',
         value: function _renderForm(ajaxMessage) {
@@ -31808,22 +31892,30 @@ var RemoveForm = function (_React$Component2) {
             if (this.state.redirectTo != undefined) return _react2.default.createElement(_reactRouterDom.Redirect, { to: this.state.redirectTo });
 
             var removeProductChild = _react2.default.createElement(
-                'form',
-                { className: 'container', onSubmit: this.handleFormSubmit },
-                '>',
+                'div',
+                null,
                 _react2.default.createElement(
-                    'h1',
-                    null,
-                    '\u0423\u0434\u0430\u043B\u0435\u043D\u0438\u0435 \u0437\u0430\u043F\u0438\u0441\u0438:'
-                ),
-                _react2.default.createElement(_product_viewer.RenderProductDetails, { entrie: this._entrieToRemove, useEdite: false }),
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    '\u0412\u044B \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u0443 \u0437\u0430\u043F\u0438\u0441\u044C?'
-                ),
-                _react2.default.createElement(_link_btn2.default, { key: 'cancel', to: _standart_link_adress.TO_BASE, text: '\u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C \u0443\u0434\u0430\u043B\u0435\u043D\u0438\u0435' }),
-                _react2.default.createElement('input', { type: 'submit', id: 'remove', value: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0437\u0430\u043F\u0438\u0441\u044C' })
+                    'form',
+                    { className: 'form-container', onSubmit: this.handleFormSubmit },
+                    '>',
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Delete the entry:'
+                    ),
+                    _react2.default.createElement(_product_viewer.RenderProductDetails, { entrie: this._entrieToRemove, useEdite: false }),
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Are you sure you want to delete this entry?'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'centerBlock' },
+                        _react2.default.createElement(_link_btn2.default, { key: 'cancel', to: _standart_link_adress.TO_BASE, text: 'Cancel' }),
+                        _react2.default.createElement('input', { type: 'submit', id: 'remove', value: 'Delete', className: 'form-submit' })
+                    )
+                )
             );
 
             return removeProductChild;

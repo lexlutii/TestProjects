@@ -15,12 +15,12 @@
     <Compile Remove="Migrations\20190916102143_InitMigration.Designer.cs" />
     <Compile Remove="Migrations\20190917120005_InitMigration.cs" />
     <Compile Remove="Migrations\20190917120005_InitMigration.Designer.cs" />
+    <Compile Remove="Migrations\20191110112633_InitMigration.cs" />
+    <Compile Remove="Migrations\20191110112633_InitMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>

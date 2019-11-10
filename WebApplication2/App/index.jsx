@@ -5,5 +5,5 @@ import App from './containers/app_main.jsx';
 
 render(
     <App />,
-    document.getElementById('content')
+    document.getElementById('container')
 );
